@@ -4,47 +4,44 @@
 
 #
 O código faz o seguinte:
-1. Localiza todos os arquivos TXT na pasta "Enviados".
-2. Para cada arquivo TXT:
-3. Extrai o nome do arquivo sem a extensão.
-4. Lê o arquivo TXT e cria um DataFrame com os dados.
-5. Remove linhas vazias do DataFrame.
-6. Cria uma planilha no Excel com o mesmo nome do arquivo TXT original.
-7. Move o arquivo TXT para a pasta "Processados".
+
+Lista todos os arquivos TXT na pasta "Enviados".
 
 
-Mais especificamente, as etapas do código são as seguintes:
+Para cada arquivo TXT:
 
-  Linha 3: Define as pastas "Enviados", "Processados" e "TXT-XLSX".
-  
-  Linha 5: Usa a função os.listdir() para listar todos os arquivos na pasta "Enviados".
-  
-  Linha 7: Verifica se há arquivos TXT na pasta "Enviados". Se não houver, o código é encerrado.
-  
-  Linha 9: Define o nome do arquivo TXT a ser processado.
-  
-  Linha 11: Abre o arquivo TXT em modo de leitura.
-  
-  Linha 13: Usa um loop para encontrar a linha que contém a marcação "LIQUIDACOES".
-  
-  Linha 17: Se a linha não for encontrada, o código é encerrado.
-  
-  Linha 19: Volta para o início do arquivo para ler a partir da linha desejada.
-  
-  Linha 21: Ignora as linhas até a linha desejada.
-  
-  Linha 23: Lê as linhas restantes do arquivo.
-  
-  Linha 25: Extrai os dados de cada coluna conforme as especificações.
-  
-  Linha 29: Cria um DataFrame com os dados extraídos.
-  
-  Linha 31: Remove linhas vazias do DataFrame.
-  
-  Linha 33: Cria uma planilha no Excel com o mesmo nome do arquivo TXT original.
-  
-  Linha 35: Move o arquivo TXT para a pasta "Processados".
-  
-  Linha 37: Imprime uma mensagem de sucesso.
-  
-Para que o código funcione corretamente, é necessário que os arquivos TXT estejam na pasta "Enviados" e sigam o formato especificado.
+1. Extrai o nome do arquivo sem a extensão.
+2. Lê o arquivo TXT e cria um DataFrame com os dados.
+3. Remove linhas vazias do DataFrame.
+4. Cria uma planilha no Excel com o mesmo nome do arquivo TXT original.
+5. Move o arquivo TXT para a pasta "Processados".
+
+   
+Mais especificamente, as etapas da função são as seguintes:
+
+Linha 3: Define os parâmetros da função processar_arquivos_txt().
+
+Linha 5: Usa a função os.listdir() para listar todos os arquivos na pasta "Enviados".
+
+Linha 7: Itera sobre a lista de arquivos TXT.
+
+Linha 9: Extrai o nome do arquivo sem a extensão.
+
+Linha 11: Abre o arquivo TXT em modo de leitura.
+
+Linha 13: Lê o arquivo TXT e cria um DataFrame com os dados.
+
+Linha 15: Remove linhas vazias do DataFrame.
+
+Linha 17: Cria uma planilha no Excel com o mesmo nome do arquivo TXT original.
+
+Linha 19: Move o arquivo TXT para a pasta "Processados".
+
+A função processar_arquivos_txt() pode ser usada para processar arquivos TXT com formatos diferentes. Para isso, basta alterar a lista de colunas do DataFrame.
+
+Por exemplo, para processar arquivos TXT com o formato especificado no código original, a lista de colunas seria a seguinte:
+
+colunas = ["Pagador", "SEU NUMERO", "NOSSO NUMERO", "VENCTO", "DT PGT", "VALOR TITULO", "JUROS", "ABAT/DESC", "VALOR PAGO", "TARIFAS", "EVENTO"]
+
+
+Se os arquivos TXT tiverem um formato diferente, as colunas do DataFrame devem ser definidas de acordo com o formato dos arquivos.
