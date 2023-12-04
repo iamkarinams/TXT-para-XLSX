@@ -1,0 +1,54 @@
+import os
+import pandas as pd
+import shutil
+
+def processar_arquivos_txt(pasta_enviados, pasta_processados, pasta_xlsx):
+    """
+    Processa todos os arquivos TXT na pasta "Enviados".
+
+    Args:
+        pasta_enviados: Insira o caminha da pasta que contém os arquivos TXT. 
+        pasta_processados: Insira o caminha da pasta para onde os arquivos TXT processados serão movidos.
+        pasta_xlsx: Insira o caminha da pasta para onde as planilhas Excel serão criadas.
+
+    Returns:
+        None
+    """
+
+    # Lista todos os arquivos TXT na pasta "Enviados".
+    arquivos_enviados = [f for f in os.listdir(pasta_enviados) if f.endswith('.TXT')]
+
+    # Para cada arquivo TXT:
+    for arquivo_txt in arquivos_enviados:
+        # Extrai o nome do arquivo sem a extensão.
+        nome_arquivo = os.path.splitext(os.path.basename(arquivo_txt))[0]
+
+        # Lê o arquivo TXT e cria um DataFrame com os dados.
+        with open(os.path.join(pasta_enviados, arquivo_txt), 'r') as file:
+            linhas = file.readlines()
+            df = pd.DataFrame({
+                colinha: [linha[i:i + len(colinha)].strip() for linha in linhas]
+                for i, colinha in enumerate(colunas)
+            })
+
+        # Remove linhas vazias do DataFrame.
+        df = df.loc[df.notna().all(axis=1)]
+
+        # Cria uma planilha no Excel com o mesmo nome do arquivo TXT original.
+        nome_planilha = f"{nome_arquivo}.xlsx"
+        caminho_planilha = os.path.join(pasta_xlsx, nome_planilha)
+        df.to_excel(caminho_planilha, index=False)
+
+        # Move o arquivo TXT para a pasta "Processados".
+        shutil.move(arquivo_txt, os.path.join(pasta_processados, arquivo_txt))
+
+
+# Exemplo de uso:
+
+pasta_enviados = "/path/to/pasta/enviados"
+pasta_processados = "/path/to/pasta/processados"
+pasta_xlsx = "/path/to/pasta/xlsx"
+
+colunas = ["coluna1", "coluna2", "coluna3"]
+
+processar_arquivos_txt(pasta_enviados, pasta_processados, pasta_xlsx, colunas)
